@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Line 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="utils.js"></script>
+</head>
+<body>
+<main>
+    <canvas id="canvas"></canvas>
+
+</main>
+<script>
+    const timeFormat = 'MM/DD/YYYY HH:mm';
+
+    function newDateString(days) {
+        return moment().add(days, 'd').format(timeFormat);
+    }
+
+    const color = Chart.helpers.color;
+    const config = {
+        type: 'bar',
+        data: {
+            labels: [
+                newDateString(0),
+                newDateString(1),
+                newDateString(2),
+                newDateString(3),
+                newDateString(4),
+                newDateString(5),
+                newDateString(6)
+            ],
+            datasets: [{
+                type: 'bar',
+                label: 'Dataset 1',
+                backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.red,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ],
+            }, {
+                type: 'bar',
+                label: 'Dataset 2',
+                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.blue,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ],
+            }, {
+                type: 'line',
+                label: 'Dataset 3',
+                backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.green,
+                fill: false,
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ],
+            }]
+        },
+        options: {
+            title: {
+                text: 'Chart.js Combo Time Scale'
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    display: true,
+                    time: {
+                        format: timeFormat,
+                        // round: 'day'
+                    }
+                }],
+            },
+        }
+    };
+
+
+    const ctx = document.getElementById('canvas').getContext('2d');
+    const chart = new Chart(ctx, config);
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Line 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+</head>
+<body>
+<main>
+    <canvas id="myChart"></canvas>
+
+</main>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const grad = ctx.createLinearGradient(0,0,0,400)
+    grad.addColorStop(0, 'rgba(250,174,50,1)');
+    grad.addColorStop(1, 'rgba(250,174,50,0)');
+    const chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    backgroundColor: grad,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    data: [0, 10, 5, 2, 20, 30, 45]
+                },
+                    {
+                        label: 'My Second dataset',
+                        backgroundColor: 'rgba(12, 9, 132, 0.4)',
+                        borderColor: function (context) {
+                            const index = context.dataIndex;
+                            const value = context.dataset.data[index];
+                            return value < 0 ? 'red' :  // draw negative values in red
+                                index % 2 ? 'blue' :    // else, alternate values in blue and green
+                                    'green';
+                        }
+
+                        ,
+                        data: [51, 35, 15, -21, 53, 54, 1]
+                    }]
+            },
+
+            // Configuration options go here
+            options: {
+                tooltips: {
+                    // mode: 'index',
+                    intersect: false
+                }
+                ,
+            }
+        })
+    ;
+</script>
+
+</body>
+</html>
